@@ -88,7 +88,7 @@ def get_tf_idf():
     return tf_idf
 
 def get_idf():
-    with open(r'inverted_index/idf.json') as f:
+    with open(r'C:\wsl\programs\sem6\ir\query_boosting\src\inverted_index\idf.json') as f: 
         idf = json.load(f)
     return idf
 
@@ -115,18 +115,26 @@ def get_word_count(word,rel_list):
 
     val = 0
 
-    for i in inv:
-        if i in rel_list:
-            for j in inv[i]:
-                if j == word:
-                    val += inv[i][j]
+    for i in rel_list:
+        # if i in rel_list:
+        for j in inv[i]:
+            if j == word:
+                val += inv[i][j]
 
     return val
+
+#get count of the word from already computed list
+def get_static_word_count(word):
+    with open(r'inverted_index/total_words_list.json') as f:
+        total = json.load(f)
+        return total[word]
+
 
 #gets list of all the documents in the collection
 def get_total_doc_list():
     os.chdir('../Dataset')
     dir_list = os.listdir()
+    
 
     final_list = []
 
@@ -134,10 +142,10 @@ def get_total_doc_list():
         if ".txt" in i :
             final_list.append(i)
     
+    os.chdir('../src')
     return final_list
 
 
-    os.chdir('../src')
 
 #total number of words in the list of given docs
 def get_total_sum_list(list):
@@ -150,9 +158,24 @@ def get_total_sum_list(list):
                 total += inv[i][j]
     return total
 
+#total count of all the words in the whole collection
+def collection_count():
+    inv = get_inverted_index()
 
-
-
+    total_list = {}
+    
+    for i in inv:
+        for j in inv[i]:
+            total_list[j] = get_word_count(j,get_total_doc_list())
+    
+    # print(total_list)
+    with open(r'inverted_index/total_words_list.json') as f:
+        json_out = json.dumps(total_list)
+        f = open(r'inverted_index/total_words_list.json','w')
+        f.write(json_out)
+        
 
 if __name__ =='__main__':
-    print(get_total_sum_list(["T4.txt","T2.txt"]))
+    # print(get_total_sum_list(["T4.txt","T2.txt"]))
+    # print(get_idf())
+    collection_count()

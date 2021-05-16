@@ -1,1 +1,4 @@
 Dataset/corpora
+src/__pycache__
+*.pyc
+*.pyo
