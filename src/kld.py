@@ -22,6 +22,8 @@ def KLD(list):
 
     total_sum_list = util.get_total_sum_list(relevant_list)
 
+    total_words_count_list = util.get_total_words_count_list()
+
     for i in inv:
         pnt = 0 # Pn(t) probability of the term in the relevant documents
         pmt = 0 # Pm(t) probability of the term in the entire collection
@@ -29,7 +31,7 @@ def KLD(list):
             for j in inv[i]:
                 pnt = util.get_word_count(j, relevant_list)/total_sum_list
                 # pmt = util.get_word_count(j, util.get_total_doc_list())/util.total_words
-                pmt = util.get_static_word_count(j)/util.total_words # replaced with static word count
+                pmt = total_words_count_list[j]/util.total_words # replaced with static word count
                 kld[j] = pnt * math.log(pnt/pmt,2)
     
     return kld

@@ -83,7 +83,7 @@ def make_query_vector(query):
     return q_vec
 
 def get_tf_idf():
-    with open(r'inverted_index/tf_idf.json') as f:
+    with open(r'C:\wsl\programs\sem6\ir\query_boosting\src\inverted_index\tf_idf.json') as f:
         tf_idf = json.load(f)
     return tf_idf
 
@@ -124,10 +124,10 @@ def get_word_count(word,rel_list):
     return val
 
 #get count of the word from already computed list
-def get_static_word_count(word):
+def get_total_words_count_list():
     with open(r'inverted_index/total_words_list.json') as f:
         total = json.load(f)
-        return total[word]
+        return total
 
 
 #gets list of all the documents in the collection
@@ -173,9 +173,31 @@ def collection_count():
         json_out = json.dumps(total_list)
         f = open(r'inverted_index/total_words_list.json','w')
         f.write(json_out)
-        
+
+def get_term_frequency_in_collection():
+    with open(r"inverted_index/total_words_list.json","r") as f:
+        tf_collection = json.load(f)
+    
+    maxi = max(tf_collection.items(),key=lambda x:x[1])[1] # max frequency value
+
+    tf_total = {}
+
+    for i in tf_collection:
+        tf_total[i] = tf_collection[i]/maxi
+    with open(r'inverted_index/tf_collection.json','w') as f:
+        json_out = json.dumps(tf_total)
+        f.write(json_out)
+    
+#returns the tf of a term in the whole collection
+def get_total_tf():
+    tf_col={}
+    with open(r"inverted_index/tf_collection.json","r")as f:
+        tf_col = json.load(f)
+    return tf_col
+
 
 if __name__ =='__main__':
     # print(get_total_sum_list(["T4.txt","T2.txt"]))
     # print(get_idf())
-    collection_count()
+    get_term_frequency_in_collection()
+    # collection_count()
