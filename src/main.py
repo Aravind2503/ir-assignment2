@@ -6,6 +6,7 @@ import time
 import bo1
 import pandas as pd
 import threading
+import borda
 
 def kldbqt():
     #KLD term expansion
@@ -139,10 +140,22 @@ print(df)
 # kldbqt()
 # bo1bqt()
 
+#borda voting
+kld_list1 = sorted(kld_list.items(),key=lambda x:x[1],reverse=True)[0:20]
+bo1_list1 = sorted(bo1_list.items(),key=lambda x:x[1],reverse=True)[0:20]
+expansion_list_kld1 = expansion_list_kld[0:20]
+expansion_list_bo11 =  expansion_list_bo1[0:20]
+
+final_expansion_terms = borda.BORDA(kld_list1,bo1_list1,expansion_list_kld1,expansion_list_bo11)
+
+print(final_expansion_terms)
+
 
 end = time.time()
 
 print("kld time:", kld_time-start)
 print("bo1 time:", bo1_time-kld_time)
 print("time elapsed: ",end-start)
+
+
 

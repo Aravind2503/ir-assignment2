@@ -48,7 +48,7 @@ def boosting_query_terms(d,top_docs,relevant_docs):
 
     #get the document prominence (i.e. similarity values of each document)
     n = len(top_docs)
-    print(top_docs)
+    # print(top_docs)
 
     #top_docs has doc_name in 0 pos and similarity in 1 pos
     

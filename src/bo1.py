@@ -10,7 +10,7 @@ def BO1(list):
 
     for i in list:
         relevant_list.append(i[0])
-    print(relevant_list)
+    # print(relevant_list)
     inv = util.get_inverted_index()
 
     for i in inv:

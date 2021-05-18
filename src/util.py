@@ -83,12 +83,12 @@ def make_query_vector(query):
     return q_vec
 
 def get_tf_idf():
-    with open(r'C:\wsl\programs\sem6\ir\query_boosting\src\inverted_index\tf_idf.json') as f:
+    with open(r'inverted_index/tf_idf.json') as f:
         tf_idf = json.load(f)
     return tf_idf
 
 def get_idf():
-    with open(r'C:\wsl\programs\sem6\ir\query_boosting\src\inverted_index\idf.json') as f: 
+    with open(r'inverted_index/idf.json') as f: 
         idf = json.load(f)
     return idf
 
